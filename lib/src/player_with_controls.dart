@@ -46,16 +46,15 @@ class PlayerWithControls extends StatelessWidget {
             child: AspectRatio(
               aspectRatio: chewieController.aspectRatio ??
                   chewieController.videoPlayerController.value.aspectRatio,
-              child: VideoPlayer(chewieController.videoPlayerController),
+              child: InteractiveViewer(
+                  child: VideoPlayer(chewieController.videoPlayerController)),
             ),
           ),
-          chewieController.overlay ?? Container(),
-          if (!chewieController.isFullScreen)
-            _buildControls(context, chewieController)
-          else
-            SafeArea(
-              child: _buildControls(context, chewieController),
-            ),
+          !chewieController.isFullScreen
+              ? _buildControls(context, chewieController)
+              : SafeArea(
+                  child: _buildControls(context, chewieController),
+                ),
         ],
       );
     }
